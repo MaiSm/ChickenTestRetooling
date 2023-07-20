@@ -12,7 +12,7 @@
 	<artifactId>springboot-apirest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>springboot-apirest</name>
-	<description>Spring Boot Api Rest Poroject</description>
+	<description>Spring Boot Api Rest Project</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

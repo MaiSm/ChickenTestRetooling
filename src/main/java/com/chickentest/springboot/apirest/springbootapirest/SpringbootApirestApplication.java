@@ -8,8 +8,7 @@ public class SpringbootApirestApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApirestApplication.class, args);
-		System.out.println("Trying de sout - Mailen");
-		
+	
 	}
 
 }
