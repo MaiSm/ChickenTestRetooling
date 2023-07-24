@@ -1,15 +1,11 @@
 package com.chickentest.springboot.apirest.springbootapirest.models.entities;
 
 import java.util.List;
-
-//import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-//import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,11 +19,12 @@ public class Farm {
 	private int chickens;
 	private int limitOfEggs;
 	private int limitOfChickens;
-	@OneToMany(mappedBy = "farm")
-	private List<Egg> eggsList;	
 	
 	@OneToMany(mappedBy = "farm")
-	private List<Egg> chickenList;	
+	private List<Egg> eggsList;
+	
+	@OneToMany(mappedBy = "farm")
+	private List<Chicken> chickenList;
 	
 	public double getId() {
 		return id;
@@ -67,6 +64,5 @@ public class Farm {
 	}
 	public void setEggsList(List<Egg> eggsList) {
 		this.eggsList = eggsList;
-	}
-	
+	}	
 }

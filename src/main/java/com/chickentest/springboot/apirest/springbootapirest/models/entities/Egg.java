@@ -1,7 +1,5 @@
 package com.chickentest.springboot.apirest.springbootapirest.models.entities;
 
-import java.util.Date; 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,13 +17,21 @@ public class Egg {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private double price;
-	private Date createdDate;
 	private int days;
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "farm_id")
-	private Farm farm;
+	private Farm farm;	
 	
+	public Egg() {		
+	}
 	
+	public Egg(double price, int days, Farm farm) {
+		this.price = price;
+		this.days = days;
+		this.farm = farm;
+	}
+		
 	public long getId() {
 		return id;
 	}
@@ -37,13 +43,7 @@ public class Egg {
 	}
 	public void setPrice(double price) {
 		this.price = price;
-	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+	}	
 	public int getDays() {
 		return days;
 	}
@@ -56,7 +56,4 @@ public class Egg {
 	public void setFarm(Farm farm) {
 		this.farm = farm;
 	}
-	
-	
-	
 }
