@@ -44,4 +44,10 @@ public class FarmRestController {
 	public String delete(@PathVariable Long id) {
 		return farmService.delete(id);
 	}
+	
+	@PutMapping("/farms/time/{days}")
+	public String addDays(@PathVariable int days) {
+		farmService.addDays(days);
+		return "We have moved in time " + days + " day/s." ;
+	}
 }

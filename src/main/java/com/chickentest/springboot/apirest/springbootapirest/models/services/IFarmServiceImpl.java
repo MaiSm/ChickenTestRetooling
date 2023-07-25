@@ -1,10 +1,8 @@
 package com.chickentest.springboot.apirest.springbootapirest.models.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.chickentest.springboot.apirest.springbootapirest.models.dao.IFarmDao;
 import com.chickentest.springboot.apirest.springbootapirest.models.entities.Farm;
 
@@ -13,6 +11,9 @@ public class IFarmServiceImpl implements IFarmService{
 
 	@Autowired
 	IFarmDao farmDao;
+	
+	@Autowired
+	IChickenService chickenService;	
 	
 	@Override
 	public List<Farm> findAll() {
@@ -46,4 +47,8 @@ public class IFarmServiceImpl implements IFarmService{
 		return "The farm has been eliminated";
 	}
 
+	@Override
+	public void addDays(int days) {
+		chickenService.growChickens(days);					
+	}
 }

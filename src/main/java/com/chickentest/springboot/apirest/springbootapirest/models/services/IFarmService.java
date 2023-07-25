@@ -11,4 +11,5 @@ public interface IFarmService {
 	public Farm save(Farm farm);
 	public Farm update(Long id, Farm farm);
 	public String delete(Long id);
+	public void addDays(int days);
 }

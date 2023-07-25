@@ -29,6 +29,8 @@ public class Chicken {
 	private double price;
 	private int days;
 	private int daysSinceLastEggs;
+	private static final int DAYS_OF_LIFE = 15;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "farm_id")
 	private Farm farm;	
@@ -62,5 +64,8 @@ public class Chicken {
 	}
 	public void setDaysSinceLastEggs(int daysSinceLastEggs) {
 		this.daysSinceLastEggs = daysSinceLastEggs;
+	}
+	public static int getDaysoflife() {
+		return DAYS_OF_LIFE;
 	}	
 }

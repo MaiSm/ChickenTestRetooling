@@ -12,4 +12,5 @@ public interface IChickenService {
 	public Chicken save(Chicken chicken);
 	public Chicken update(Long id, Chicken chicken);
 	public String delete(Long id);
+	public void growChickens (int days);
 }

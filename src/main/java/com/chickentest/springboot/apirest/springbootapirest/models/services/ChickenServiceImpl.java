@@ -1,10 +1,9 @@
 package com.chickentest.springboot.apirest.springbootapirest.models.services;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.chickentest.springboot.apirest.springbootapirest.models.dao.IChickenDao;
 import com.chickentest.springboot.apirest.springbootapirest.models.entities.Chicken;
 
@@ -12,7 +11,7 @@ import com.chickentest.springboot.apirest.springbootapirest.models.entities.Chic
 public class ChickenServiceImpl implements IChickenService {
 
 	@Autowired
-	IChickenDao chickenDao;
+	IChickenDao chickenDao;	
 	
 	@Override
 	public List<Chicken> findAll() {		
@@ -42,5 +41,21 @@ public class ChickenServiceImpl implements IChickenService {
 		chickenDao.deleteById(id);
 		return "Chicken has been eliminated";
 	}
+	
+	public void growChickens (int days) {
+		
+		List<Chicken> allChickens = (List<Chicken>)chickenDao.findAll();
+		List<Chicken> chickensToDie = new ArrayList<>();
 
+		for (Chicken eachChicken : allChickens) {
+			eachChicken.setDays(eachChicken.getDays()+days);
+			eachChicken.setDaysSinceLastEggs(eachChicken.getDaysSinceLastEggs()+days);
+			if(eachChicken.getDays() < Chicken.getDaysoflife()) {
+				chickenDao.save(eachChicken);
+			}else {
+				chickensToDie.add(eachChicken);
+			}
+		}
+		chickenDao.deleteAll(chickensToDie);
+	}	
 }
