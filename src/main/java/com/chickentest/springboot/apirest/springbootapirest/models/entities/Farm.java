@@ -58,11 +58,5 @@ public class Farm {
 	}
 	public void setLimitOfChickens(int limitOfChickens) {
 		this.limitOfChickens = limitOfChickens;
-	}
-	public List<Egg> getEggsList() {
-		return eggsList;
-	}
-	public void setEggsList(List<Egg> eggsList) {
-		this.eggsList = eggsList;
 	}	
 }
