@@ -17,6 +17,8 @@ public class Farm {
 	private double money;
 	private int eggs;
 	private int chickens;
+	private int eggPrice;
+	private int chickenPrice;
 	private int limitOfEggs;
 	private int limitOfChickens;
 	
@@ -46,6 +48,18 @@ public class Farm {
 	}
 	public void setChickens(int chickens) {
 		this.chickens = chickens;
+	}
+	public int getEggPrice() {
+		return eggPrice;
+	}
+	public void setEggPrice(int eggPrice) {
+		this.eggPrice = eggPrice;
+	}
+	public int getChickenPrice() {
+		return chickenPrice;
+	}
+	public void setChickenPrice(int chickenPrice) {
+		this.chickenPrice = chickenPrice;
 	}
 	public int getLimitOfEggs() {
 		return limitOfEggs;

@@ -15,6 +15,9 @@ public class IFarmServiceImpl implements IFarmService{
 	@Autowired
 	IChickenService chickenService;	
 	
+	@Autowired
+	IEggService eggService;	
+	
 	@Override
 	public List<Farm> findAll() {
 		return (List<Farm>) farmDao.findAll();
@@ -49,6 +52,7 @@ public class IFarmServiceImpl implements IFarmService{
 
 	@Override
 	public void addDays(int days) {
-		chickenService.growChickens(days);					
+		chickenService.growChickens(days);	
+		eggService.growEggs(days);		
 	}
 }
