@@ -53,6 +53,7 @@ public class IFarmServiceImpl implements IFarmService{
 	@Override
 	public void addDays(int days) {
 		chickenService.growChickens(days);	
-		eggService.growEggs(days);		
+		eggService.growEggs(days);
+		chickenService.putEggs(days);
 	}
 }

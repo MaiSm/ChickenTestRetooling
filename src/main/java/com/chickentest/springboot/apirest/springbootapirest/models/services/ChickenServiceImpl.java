@@ -5,13 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chickentest.springboot.apirest.springbootapirest.models.dao.IChickenDao;
+import com.chickentest.springboot.apirest.springbootapirest.models.dao.IEggDao;
 import com.chickentest.springboot.apirest.springbootapirest.models.entities.Chicken;
+import com.chickentest.springboot.apirest.springbootapirest.models.entities.Egg;
 
 @Service
 public class ChickenServiceImpl implements IChickenService {
 
 	@Autowired
 	IChickenDao chickenDao;	
+	
+	@Autowired
+	IEggDao eggDao;	
+	
+	List<Egg> eggsToBePut = new ArrayList<>();
 	
 	@Override
 	public List<Chicken> findAll() {		
@@ -46,7 +53,7 @@ public class ChickenServiceImpl implements IChickenService {
 		
 		List<Chicken> allChickens = (List<Chicken>)chickenDao.findAll();
 		List<Chicken> chickensToDie = new ArrayList<>();
-
+		
 		for (Chicken eachChicken : allChickens) {
 			eachChicken.setDays(eachChicken.getDays()+days);
 			eachChicken.setDaysSinceLastEggs(eachChicken.getDaysSinceLastEggs()+days);
@@ -54,8 +61,32 @@ public class ChickenServiceImpl implements IChickenService {
 				chickenDao.save(eachChicken);
 			}else {
 				chickensToDie.add(eachChicken);
+				if(eachChicken.getDaysSinceLastEggs() >= Chicken.getDaysToPutEggs()) {				
+					int eggDays = eachChicken.getDaysSinceLastEggs() - Chicken.getDaysToPutEggs();
+					for(int i = 0; i<Chicken.getEggsByChicken(); i++) {
+						eggsToBePut.add(new Egg(eachChicken.getFarm().getEggPrice(), eggDays, eachChicken.getFarm()));
+					}															
+				}
 			}
 		}
 		chickenDao.deleteAll(chickensToDie);
-	}	
+	}
+	
+	public void putEggs(int days) {
+		
+		List<Chicken> allChickens = (List<Chicken>)chickenDao.findAll(); //where days >0
+				
+		for (Chicken eachChicken : allChickens) {				
+			if(eachChicken.getDaysSinceLastEggs() >= Chicken.getDaysToPutEggs()) {				
+				int newCount = eachChicken.getDaysSinceLastEggs() - Chicken.getDaysToPutEggs();
+				for(int i = 0; i<Chicken.getEggsByChicken(); i++) {
+					eggsToBePut.add(new Egg(eachChicken.getFarm().getEggPrice(), newCount, eachChicken.getFarm()));
+				}
+				eachChicken.setDaysSinceLastEggs(newCount);											
+			}
+			chickenDao.save(eachChicken);						
+		}		
+		eggDao.saveAll(eggsToBePut);
+		eggsToBePut.clear(); 
+	}
 }
