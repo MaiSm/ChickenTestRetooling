@@ -29,25 +29,11 @@ public class IFarmServiceImpl implements IFarmService{
 	}
 
 	@Override
-	public Farm save(Farm farm) {
-		return farmDao.save(farm);
-	}
-
-	@Override
 	public Farm update(Long id, Farm farm) {
 		Farm currentFarm = farmDao.findById(id).orElse(null);
-		currentFarm.setMoney(farm.getMoney());
-		currentFarm.setEggs(farm.getEggs());
-		currentFarm.setChickens(farm.getChickens());
-		currentFarm.setLimitOfEggs(farm.getLimitOfEggs());
-		currentFarm.setLimitOfChickens(farm.getLimitOfChickens());
+		currentFarm.setEggPrice(farm.getEggPrice());
+		currentFarm.setChickenPrice(farm.getChickenPrice());
 		return farmDao.save(currentFarm);
-	}
-
-	@Override
-	public String delete(Long id) {
-		farmDao.deleteById(id);
-		return "The farm has been eliminated";
 	}
 
 	@Override
