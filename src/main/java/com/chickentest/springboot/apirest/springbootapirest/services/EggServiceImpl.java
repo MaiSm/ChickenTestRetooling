@@ -1,13 +1,13 @@
-package com.chickentest.springboot.apirest.springbootapirest.models.services;
+package com.chickentest.springboot.apirest.springbootapirest.services;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.chickentest.springboot.apirest.springbootapirest.models.dao.IChickenDao;
-import com.chickentest.springboot.apirest.springbootapirest.models.dao.IEggDao;
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Chicken;
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Egg;
+import com.chickentest.springboot.apirest.springbootapirest.dao.IChickenDao;
+import com.chickentest.springboot.apirest.springbootapirest.dao.IEggDao;
+import com.chickentest.springboot.apirest.springbootapirest.models.Chicken;
+import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
 
 @Service
 public class EggServiceImpl implements IEggService {

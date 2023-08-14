@@ -1,7 +1,7 @@
-package com.chickentest.springboot.apirest.springbootapirest.models.services;
+package com.chickentest.springboot.apirest.springbootapirest.services;
 
 import java.util.List;
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Farm;
+import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 public interface IFarmService {
 	

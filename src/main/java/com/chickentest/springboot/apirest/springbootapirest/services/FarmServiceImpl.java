@@ -1,13 +1,13 @@
-package com.chickentest.springboot.apirest.springbootapirest.models.services;
+package com.chickentest.springboot.apirest.springbootapirest.services;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.chickentest.springboot.apirest.springbootapirest.models.dao.IFarmDao;
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Farm;
+import com.chickentest.springboot.apirest.springbootapirest.dao.IFarmDao;
+import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 @Service
-public class IFarmServiceImpl implements IFarmService{
+public class FarmServiceImpl implements IFarmService{
 
 	@Autowired
 	IFarmDao farmDao;

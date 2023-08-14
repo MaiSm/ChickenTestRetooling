@@ -1,8 +1,8 @@
-package com.chickentest.springboot.apirest.springbootapirest.models.services;
+package com.chickentest.springboot.apirest.springbootapirest.services;
 
 import java.util.List;
 
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Egg;
+import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
 
 
 public interface IEggService {

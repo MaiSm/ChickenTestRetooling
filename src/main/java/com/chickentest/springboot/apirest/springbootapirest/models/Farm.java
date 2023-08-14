@@ -1,4 +1,4 @@
-package com.chickentest.springboot.apirest.springbootapirest.models.entities;
+package com.chickentest.springboot.apirest.springbootapirest.models;
 
 import java.util.List;
 import jakarta.persistence.Entity;

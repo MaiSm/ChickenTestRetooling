@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Egg;
-import com.chickentest.springboot.apirest.springbootapirest.models.services.IEggService;
+import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
+import com.chickentest.springboot.apirest.springbootapirest.services.IEggService;
 
 @RestController
 public class EggRestController {

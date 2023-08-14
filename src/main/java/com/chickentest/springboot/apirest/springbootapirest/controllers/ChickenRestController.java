@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chickentest.springboot.apirest.springbootapirest.models.entities.Chicken;
-import com.chickentest.springboot.apirest.springbootapirest.models.services.IChickenService;
+import com.chickentest.springboot.apirest.springbootapirest.models.Chicken;
+import com.chickentest.springboot.apirest.springbootapirest.services.IChickenService;
 
 @RestController
 public class ChickenRestController {
