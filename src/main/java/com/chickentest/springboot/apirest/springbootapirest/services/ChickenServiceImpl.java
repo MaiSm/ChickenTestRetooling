@@ -64,7 +64,7 @@ public class ChickenServiceImpl implements IChickenService {
 				if(eachChicken.getDaysSinceLastEggs() >= Chicken.getDaysToPutEggs()) {				
 					int eggDays = eachChicken.getDaysSinceLastEggs() - Chicken.getDaysToPutEggs();
 					for(int i = 0; i<Chicken.getEggsByChicken(); i++) {
-						eggsToBePut.add(new Egg(eachChicken.getFarm().getEggPrice(), eggDays, eachChicken.getFarm()));
+						eggsToBePut.add(new Egg(eachChicken.getFarm().getSellingEggPrice(), eggDays, eachChicken.getFarm()));
 					}															
 				}
 			}
@@ -80,7 +80,7 @@ public class ChickenServiceImpl implements IChickenService {
 			if(eachChicken.getDaysSinceLastEggs() >= Chicken.getDaysToPutEggs()) {				
 				int newCount = eachChicken.getDaysSinceLastEggs() - Chicken.getDaysToPutEggs();
 				for(int i = 0; i<Chicken.getEggsByChicken(); i++) {
-					eggsToBePut.add(new Egg(eachChicken.getFarm().getEggPrice(), newCount, eachChicken.getFarm()));
+					eggsToBePut.add(new Egg(eachChicken.getFarm().getSellingEggPrice(), newCount, eachChicken.getFarm()));
 				}
 				eachChicken.setDaysSinceLastEggs(newCount);											
 			}

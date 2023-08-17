@@ -14,11 +14,14 @@ public class Farm {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;	
+	private String name;
 	private double money;
 	private int eggs;
 	private int chickens;
-	private int eggPrice;
-	private int chickenPrice;
+	private double sellingEggPrice;
+	private double sellingChickenPrice;
+	private double buyingEggPrice;
+	private double buyingChickenPrice;
 	private int limitOfEggs;
 	private int limitOfChickens;
 	
@@ -28,8 +31,14 @@ public class Farm {
 	@OneToMany(mappedBy = "farm")
 	private List<Chicken> chickenList;
 	
-	public double getId() {
+	public long getId() {
 		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public double getMoney() {
 		return money;
@@ -48,18 +57,30 @@ public class Farm {
 	}
 	public void setChickens(int chickens) {
 		this.chickens = chickens;
+	}	
+	public double getSellingEggPrice() {
+		return sellingEggPrice;
 	}
-	public int getEggPrice() {
-		return eggPrice;
+	public void setSellingEggPrice(double sellingEggPrice) {
+		this.sellingEggPrice = sellingEggPrice;
 	}
-	public void setEggPrice(int eggPrice) {
-		this.eggPrice = eggPrice;
+	public double getSellingChickenPrice() {
+		return sellingChickenPrice;
 	}
-	public int getChickenPrice() {
-		return chickenPrice;
+	public void setSellingChickenPrice(double sellingChickenPrice) {
+		this.sellingChickenPrice = sellingChickenPrice;
 	}
-	public void setChickenPrice(int chickenPrice) {
-		this.chickenPrice = chickenPrice;
+	public double getBuyingEggPrice() {
+		return buyingEggPrice;
+	}
+	public void setBuyingEggPrice(double buyingEggPrice) {
+		this.buyingEggPrice = buyingEggPrice;
+	}
+	public double getBuyingChickenPrice() {
+		return buyingChickenPrice;
+	}
+	public void setBuyingChickenPrice(double buyingChickenPrice) {
+		this.buyingChickenPrice = buyingChickenPrice;
 	}
 	public int getLimitOfEggs() {
 		return limitOfEggs;
@@ -72,5 +93,6 @@ public class Farm {
 	}
 	public void setLimitOfChickens(int limitOfChickens) {
 		this.limitOfChickens = limitOfChickens;
-	}	
+	}
+		
 }

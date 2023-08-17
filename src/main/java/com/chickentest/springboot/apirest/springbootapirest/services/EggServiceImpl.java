@@ -71,7 +71,7 @@ public class EggServiceImpl implements IEggService {
 		int daysSinceBorn;
 		for(Egg eachEgg : eggsToChickens) {	
 			daysSinceBorn = eachEgg.getDays()-Egg.getDaysToBorn();
-			newChickens.add(new Chicken(eachEgg.getFarm().getChickenPrice(), daysSinceBorn, daysSinceBorn, eachEgg.getFarm()));		
+			newChickens.add(new Chicken(eachEgg.getFarm().getSellingChickenPrice(), daysSinceBorn, daysSinceBorn, eachEgg.getFarm()));		
 		}
 		chickenDao.saveAll(newChickens);	
 		eggDao.deleteAll(eggsToChickens);		

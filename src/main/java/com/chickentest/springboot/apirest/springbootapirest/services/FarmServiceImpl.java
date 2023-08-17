@@ -31,8 +31,11 @@ public class FarmServiceImpl implements IFarmService{
 	@Override
 	public Farm update(Long id, Farm farm) {
 		Farm currentFarm = farmDao.findById(id).orElse(null);
-		currentFarm.setEggPrice(farm.getEggPrice());
-		currentFarm.setChickenPrice(farm.getChickenPrice());
+		currentFarm.setSellingEggPrice(farm.getSellingEggPrice());
+		currentFarm.setSellingChickenPrice(farm.getSellingChickenPrice());
+		currentFarm.setBuyingEggPrice(farm.getBuyingEggPrice());
+		currentFarm.setBuyingChickenPrice(farm.getBuyingChickenPrice());
+
 		return farmDao.save(currentFarm);
 	}
 
@@ -41,5 +44,5 @@ public class FarmServiceImpl implements IFarmService{
 		chickenService.growChickens(days);	
 		eggService.growEggs(days);
 		chickenService.putEggs(days);
-	}
+	}		
 }
