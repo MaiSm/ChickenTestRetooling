@@ -32,6 +32,7 @@ public class Chicken {
 	private static final int DAYS_OF_LIFE = 15;
 	private static final int DAYS_TO_PUT_EGGS = 5;
 	private static final int EGGS_BY_CHICKEN = 2;
+	private static final int DAYS_WHEN_BOUGHT_CHICKEN = 2;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "farm_id")
@@ -75,5 +76,8 @@ public class Chicken {
 	}
 	public static int getEggsByChicken() {
 		return EGGS_BY_CHICKEN;
+	}
+	public static int getDaysWhenBoughtChicken() {
+		return DAYS_WHEN_BOUGHT_CHICKEN;
 	}	
 }

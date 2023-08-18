@@ -44,5 +44,14 @@ public class FarmServiceImpl implements IFarmService{
 		chickenService.growChickens(days);	
 		eggService.growEggs(days);
 		chickenService.putEggs(days);
-	}		
+	}
+	
+	@Override
+	public void buyChickens(Farm farm, int amount) {
+		double expendedMoney = farm.getBuyingChickenPrice()*amount;
+		farm.setMoney(farm.getMoney()-expendedMoney);		
+		chickenService.buyChickens(farm, amount);	
+		farmDao.save(farm);
+	}
+	
 }

@@ -8,6 +8,7 @@ import com.chickentest.springboot.apirest.springbootapirest.dao.IChickenDao;
 import com.chickentest.springboot.apirest.springbootapirest.dao.IEggDao;
 import com.chickentest.springboot.apirest.springbootapirest.models.Chicken;
 import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
+import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 @Service
 public class ChickenServiceImpl implements IChickenService {
@@ -88,5 +89,14 @@ public class ChickenServiceImpl implements IChickenService {
 		}		
 		eggDao.saveAll(eggsToBePut);
 		eggsToBePut.clear(); 
+	}
+	
+	@Override
+	public void buyChickens(Farm farm, int amount) {
+		List<Chicken> newChickens = new ArrayList<>();
+		for(int i=0; i < amount; i++) {	
+			newChickens.add(new Chicken(farm.getSellingChickenPrice(), Chicken.getDaysWhenBoughtChicken(), Chicken.getDaysWhenBoughtChicken(), farm));		
+		}
+		chickenDao.saveAll(newChickens);			
 	}
 }

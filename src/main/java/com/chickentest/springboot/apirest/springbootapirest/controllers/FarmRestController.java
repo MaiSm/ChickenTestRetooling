@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ import com.chickentest.springboot.apirest.springbootapirest.services.IFarmServic
 public class FarmRestController {
 
 	@Autowired
-	IFarmService farmService;
+	IFarmService farmService;	
 	
 	@GetMapping("/farms")
 	public ResponseEntity<?> findAll() {
@@ -87,5 +88,27 @@ public class FarmRestController {
 			response.put("Error", e.getMessage()+ " : " + e.getCause());
 			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);		
 		}		
+	}
+	
+	@PostMapping ("/farms/{id}/chickens/buy/{amount}")
+	public ResponseEntity<?> buyChickens (@PathVariable long id, @PathVariable int amount){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			Farm farm = farmService.findById(id);
+			if (farm== null) {
+				response.put("Message", "The farm does not exist in the database");
+				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
+			} else if (farm.getMoney()< farm.getBuyingChickenPrice()*amount) {
+				response.put("Message", "The farm has no enough money to buy that amount of chickens");
+				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);
+			} else {
+				farmService.buyChickens(farm, amount);				
+				response.put("Message", "You have bougth " + amount + " chickens.");
+				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
+			}
+		}catch(Exception e ) {
+			response.put("Error", e.getMessage()+ " : " + e.getCause());
+			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

@@ -3,6 +3,7 @@ package com.chickentest.springboot.apirest.springbootapirest.services;
 import java.util.List;
 
 import com.chickentest.springboot.apirest.springbootapirest.models.Chicken;
+import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 
 public interface IChickenService {
@@ -14,4 +15,5 @@ public interface IChickenService {
 	public String delete(Long id);
 	public void growChickens (int days);
 	public void putEggs(int days);
+	public void buyChickens(Farm farm, int amount);
 }
