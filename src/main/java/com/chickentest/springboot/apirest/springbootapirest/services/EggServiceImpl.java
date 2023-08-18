@@ -63,8 +63,7 @@ public class EggServiceImpl implements IEggService {
 			}
 		}		
 		eggToChicken(eggsToChickens);			
-	}
-	
+	}	
 		
 	public void eggToChicken(List<Egg> eggsToChickens) {
 		List<Chicken> newChickens = new ArrayList<>();
@@ -76,4 +75,9 @@ public class EggServiceImpl implements IEggService {
 		chickenDao.saveAll(newChickens);	
 		eggDao.deleteAll(eggsToChickens);		
 	}	
+	
+	@Override
+	public int countEggs(long id) {
+		return eggDao.countByFarmId(id);
+	}
 }

@@ -13,4 +13,5 @@ public interface IEggService {
 	public Egg update(Long Id, Egg egg);
 	public String delete(Long Id);
 	public void growEggs (int days);
+	public int countEggs(long id);
 }
