@@ -99,4 +99,10 @@ public class ChickenServiceImpl implements IChickenService {
 		}
 		chickenDao.saveAll(newChickens);			
 	}
+	
+	@Override
+	public int countChickens(long id) {
+		return chickenDao.countByFarmId(id);
+	}
+	
 }
