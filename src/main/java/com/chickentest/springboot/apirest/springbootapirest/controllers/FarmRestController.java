@@ -90,25 +90,28 @@ public class FarmRestController {
 		}		
 	}
 	
-	@PostMapping ("/farms/{id}/chickens/buy/{amount}")
-	public ResponseEntity<?> buyChickens (@PathVariable long id, @PathVariable int amount){
+	@PostMapping ("/farms/{id}/{type}/buy/{amount}")
+	public ResponseEntity<?> buyChickensOrEggs (@PathVariable long id, @PathVariable String type, @PathVariable int amount){
 		Map<String, Object> response = new HashMap<>();
 		try {
 			Farm farm = farmService.findById(id);
-			if (farm== null) {
+			if (farm!= null) {
+				 if ((type.equals("chickens") && (farm.getMoney()>= farm.getBuyingChickenPrice()*amount)) || (type.equals("eggs") && (farm.getMoney()>= farm.getBuyingEggPrice()*amount))){
+					farmService.buyChickensOrEggs(farm, amount, type);
+					response.put("Message", "You have bought " + amount + " " + type);
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
+				} else {
+					response.put("Message", "The farm has no enough money to buy that amount of " + type);
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);					
+				}
+			} else {				
 				response.put("Message", "The farm does not exist in the database");
 				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
-			} else if (farm.getMoney()< farm.getBuyingChickenPrice()*amount) {
-				response.put("Message", "The farm has no enough money to buy that amount of chickens");
-				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);
-			} else {
-				farmService.buyChickens(farm, amount);				
-				response.put("Message", "You have bougth " + amount + " chickens.");
-				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
 			}
 		}catch(Exception e ) {
 			response.put("Error", e.getMessage()+ " : " + e.getCause());
 			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
 }

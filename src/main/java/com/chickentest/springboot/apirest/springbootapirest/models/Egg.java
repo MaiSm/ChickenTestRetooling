@@ -19,6 +19,7 @@ public class Egg {
 	private double price;
 	private int days;
 	private static final int DAYS_TO_BORN = 10;
+	private static final int DAYS_WHEN_BOUGHT_EGG = 1;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "farm_id")
@@ -59,5 +60,9 @@ public class Egg {
 	}
 	public static int getDaysToBorn() {
 		return DAYS_TO_BORN;
+	}
+
+	public static int getDaysWhenBoughtEgg() {
+		return DAYS_WHEN_BOUGHT_EGG;
 	}
 }
