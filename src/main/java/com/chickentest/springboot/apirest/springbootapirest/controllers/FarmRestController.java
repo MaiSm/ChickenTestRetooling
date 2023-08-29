@@ -124,7 +124,7 @@ public class FarmRestController {
 	}
 	
 	@GetMapping("/farms/{id}/{type}")
-	public ResponseEntity<?> countChickensorEggs(@PathVariable long id, @PathVariable String type){
+	public ResponseEntity<?> countChickensOrEggs(@PathVariable long id, @PathVariable String type){
 		Map<String, Object> response = new HashMap<>();
 		try {
 			int numOfChickensOrEggs = farmService.countChickensOrEggs(id, type);

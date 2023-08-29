@@ -47,14 +47,6 @@ public class FarmServiceImpl implements IFarmService{
 	}
 	
 	@Override
-	public void buyChickens(Farm farm, int amount) {
-		double expendedMoney = farm.getBuyingChickenPrice()*amount;
-		farm.setMoney(farm.getMoney()-expendedMoney);		
-		chickenService.buyChickens(farm, amount);	
-		farmDao.save(farm);
-	}
-	
-	@Override
 	public void buyChickensOrEggs(Farm farm, int amount, String type) {
 		double expendedMoney = type.equals("chickens") ? farm.getBuyingChickenPrice()*amount : farm.getBuyingEggPrice()*amount;
 		farm.setMoney(farm.getMoney()-expendedMoney);

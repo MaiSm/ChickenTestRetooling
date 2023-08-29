@@ -16,8 +16,6 @@ public class Farm {
 	private long id;	
 	private String name;
 	private double money;
-	private int eggs;
-	private int chickens;
 	private double sellingEggPrice;
 	private double sellingChickenPrice;
 	private double buyingEggPrice;
@@ -45,18 +43,6 @@ public class Farm {
 	}
 	public void setMoney(double money) {
 		this.money = money;
-	}
-	public int getEggs() {
-		return eggs;
-	}
-	public void setEggs(int eggs) {
-		this.eggs = eggs;
-	}
-	public int getChickens() {
-		return chickens;
-	}
-	public void setChickens(int chickens) {
-		this.chickens = chickens;
 	}	
 	public double getSellingEggPrice() {
 		return sellingEggPrice;
