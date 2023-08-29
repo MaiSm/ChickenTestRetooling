@@ -98,13 +98,20 @@ public class FarmRestController {
 		try {
 			Farm farm = farmService.findById(id);
 			if (farm!= null) {
-				 if ((type.equals("chickens") && (farm.getMoney()>= farm.getBuyingChickenPrice()*amount)) || (type.equals("eggs") && (farm.getMoney()>= farm.getBuyingEggPrice()*amount))){
+				
+				int farmLimit = type.equals("chickens") ? farm.getLimitOfChickens() : farm.getLimitOfEggs();
+				Boolean farmSpace =  farmLimit >= (farmService.countChickensOrEggs(1L, type) + amount);
+				
+				if ((type.equals("chickens") && (farm.getMoney()< farm.getBuyingChickenPrice()*amount)) || (type.equals("eggs") && (farm.getMoney()< farm.getBuyingEggPrice()*amount))){
+					response.put("Message", "The farm has no enough money to buy that amount of " + type);
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);		
+				} else if (!farmSpace){
+					response.put("Message", "The farm has no enough space to buy that amount of " + type);
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);
+				}else{
 					farmService.buyChickensOrEggs(farm, amount, type);
 					response.put("Message", "You have bought " + amount + " " + type);
-					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);
-				} else {
-					response.put("Message", "The farm has no enough money to buy that amount of " + type);
-					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);					
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);				
 				}
 			} else {				
 				response.put("Message", "The farm does not exist in the database");
