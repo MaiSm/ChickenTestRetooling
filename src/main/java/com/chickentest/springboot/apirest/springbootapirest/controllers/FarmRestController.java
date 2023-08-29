@@ -116,4 +116,16 @@ public class FarmRestController {
 		}
 	}
 	
+	@GetMapping("/farms/{id}/{type}")
+	public ResponseEntity<?> countChickensorEggs(@PathVariable long id, @PathVariable String type){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			int numOfChickensOrEggs = farmService.countChickensOrEggs(id, type);
+			return new ResponseEntity<Integer>(numOfChickensOrEggs,HttpStatus.OK);			
+		}catch(Exception e) {
+			response.put("Error", e.getMessage()+ " : " + e.getLocalizedMessage());
+			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 }

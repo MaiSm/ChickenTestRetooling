@@ -65,5 +65,16 @@ public class FarmServiceImpl implements IFarmService{
 		}
 		farmDao.save(farm);
 	}
+
+	@Override
+	public int countChickensOrEggs(Long id, String type) {
+		int numOfChickensOrEggs = 0;
+		if (type.equals("chickens")) {
+			numOfChickensOrEggs = chickenService.countChickens(id);
+		} else if (type.equals("eggs")) {
+			numOfChickensOrEggs = eggService.countEggs(id);
+		}
+		return numOfChickensOrEggs;
+	}
 	
 }
