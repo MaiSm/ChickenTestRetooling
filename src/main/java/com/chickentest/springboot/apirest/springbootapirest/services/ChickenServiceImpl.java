@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chickentest.springboot.apirest.springbootapirest.dao.IChickenDao;
 import com.chickentest.springboot.apirest.springbootapirest.dao.IEggDao;
+import com.chickentest.springboot.apirest.springbootapirest.dao.IFarmDao;
 import com.chickentest.springboot.apirest.springbootapirest.models.Chicken;
 import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
@@ -18,6 +19,9 @@ public class ChickenServiceImpl implements IChickenService {
 	
 	@Autowired
 	IEggDao eggDao;	
+	
+	@Autowired
+	IFarmDao farmDao;
 	
 	List<Egg> eggsToBePut = new ArrayList<>();
 	
@@ -104,10 +108,14 @@ public class ChickenServiceImpl implements IChickenService {
 	public void sellChickens(Farm farm, int amount) {
 		List<Chicken> allChickens = (List<Chicken>) chickenDao.findAll();
 		List<Chicken> chickensToSell = new ArrayList<>();
+		double income = 0;		
 
 		for(int i=0; i < amount; i++) {	
 			chickensToSell.add(allChickens.get(i));
+			income += allChickens.get(i).getPrice();
 		}
+		farm.setMoney(farm.getMoney()+income);
+		farmDao.save(farm);
 		chickenDao.deleteAll(chickensToSell);	
 	}
 	
