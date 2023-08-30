@@ -87,6 +87,17 @@ public class EggServiceImpl implements IEggService {
 	}
 	
 	@Override
+	public void sellEggs(Farm farm, int amount) {
+		List<Egg> allEggs = (List<Egg>) eggDao.findAll();
+		List<Egg> eggsToSell = new ArrayList<>();
+
+		for(int i=0; i < amount; i++) {	
+			eggsToSell.add(allEggs.get(i));
+		}
+		eggDao.deleteAll(eggsToSell);	
+	}
+	
+	@Override
 	public int countEggs(long id) {
 		return eggDao.countByFarmId(id);
 	}

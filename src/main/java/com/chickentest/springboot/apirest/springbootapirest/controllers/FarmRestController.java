@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -91,7 +92,7 @@ public class FarmRestController {
 			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);		
 		}		
 	}
-	
+		
 	@PostMapping ("/farms/{id}/{type}/buy/{amount}")
 	public ResponseEntity<?> buyChickensOrEggs (@PathVariable long id, @PathVariable String type, @PathVariable int amount){
 		Map<String, Object> response = new HashMap<>();
@@ -123,6 +124,30 @@ public class FarmRestController {
 		}
 	}
 	
+	@DeleteMapping ("/farms/{id}/{type}/sell/{amount}")
+	public ResponseEntity<?> sellChickensOrEggs (@PathVariable long id, @PathVariable String type, @PathVariable int amount){
+		Map<String, Object> response = new HashMap<>();
+		try {
+			Farm farm = farmService.findById(id);
+			if (farm!= null) {							
+				if (amount > farmService.countChickensOrEggs(id, type)){
+					response.put("Message", "The farm has no enough " + type + " to sell");
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);		
+				} else{
+					farmService.sellChickensOrEggs(farm, amount, type);
+					response.put("Message", "You have sold " + amount + " " + type);
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.CREATED);				
+				}
+			} else {				
+				response.put("Message", "The farm does not exist in the database");
+				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
+			}
+		}catch(Exception e ) {
+			response.put("Error", e.getMessage()+ " : " + e.getCause());
+			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}	
+
 	@GetMapping("/farms/{id}/{type}")
 	public ResponseEntity<?> countChickensOrEggs(@PathVariable long id, @PathVariable String type){
 		Map<String, Object> response = new HashMap<>();

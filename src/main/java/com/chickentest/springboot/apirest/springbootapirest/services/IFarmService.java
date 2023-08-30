@@ -10,5 +10,6 @@ public interface IFarmService {
 	public Farm update(Long id, Farm farm);
 	public void addDays(int days);
 	public void buyChickensOrEggs(Farm farm, int amount, String type);
+	public void sellChickensOrEggs(Farm farm, int amount, String type);
 	public int countChickensOrEggs(Long id, String type);
 }

@@ -101,8 +101,19 @@ public class ChickenServiceImpl implements IChickenService {
 	}
 	
 	@Override
+	public void sellChickens(Farm farm, int amount) {
+		List<Chicken> allChickens = (List<Chicken>) chickenDao.findAll();
+		List<Chicken> chickensToSell = new ArrayList<>();
+
+		for(int i=0; i < amount; i++) {	
+			chickensToSell.add(allChickens.get(i));
+		}
+		chickenDao.deleteAll(chickensToSell);	
+	}
+	
+	@Override
 	public int countChickens(long id) {
 		return chickenDao.countByFarmId(id);
-	}
+	}	
 	
 }
