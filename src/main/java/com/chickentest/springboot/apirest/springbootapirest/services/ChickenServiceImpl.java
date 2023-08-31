@@ -105,14 +105,15 @@ public class ChickenServiceImpl implements IChickenService {
 	}
 	
 	@Override
-	public void sellChickens(Farm farm, int amount) {
+	public void sellChickens(Farm farm, int amount, boolean discount) {
 		List<Chicken> allChickens = (List<Chicken>) chickenDao.findAll();
 		List<Chicken> chickensToSell = new ArrayList<>();
-		double income = 0;		
+		double income = Farm.getZero();		
 
 		for(int i=0; i < amount; i++) {	
 			chickensToSell.add(allChickens.get(i));
-			income += allChickens.get(i).getPrice();
+			double profit = discount == false ? allChickens.get(i).getPrice() : allChickens.get(i).getPrice()*Farm.getPercentOfDiscount(); 
+			income += profit;
 		}
 		farm.setMoney(farm.getMoney()+income);
 		farmDao.save(farm);

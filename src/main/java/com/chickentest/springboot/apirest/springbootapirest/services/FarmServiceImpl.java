@@ -44,6 +44,7 @@ public class FarmServiceImpl implements IFarmService{
 		chickenService.growChickens(days);	
 		eggService.growEggs(days);
 		chickenService.putEggs(days);
+		checkLimits();
 	}
 	
 	@Override
@@ -61,9 +62,9 @@ public class FarmServiceImpl implements IFarmService{
 	@Override
 	public void sellChickensOrEggs(Farm farm, int amount, String type) {		
 		if(type.equals("chickens")) {
-			chickenService.sellChickens(farm, amount);
+			chickenService.sellChickens(farm, amount, false);
 		} else {
-			eggService.sellEggs(farm, amount);
+			eggService.sellEggs(farm, amount, false);
 		}
 	}
 
@@ -77,5 +78,22 @@ public class FarmServiceImpl implements IFarmService{
 		}
 		return numOfChickensOrEggs;
 	}	
+	
+	@Override
+	public void checkLimits() {
+		List<Farm> farmList = (List<Farm>) farmDao.findAll();
+		
+		for (Farm eachFarm : farmList) {
+			int diffOfEggs = eggService.countEggs(eachFarm.getId()) - eachFarm.getLimitOfEggs();
+			int diffOfChickens = chickenService.countChickens(eachFarm.getId()) - eachFarm.getLimitOfChickens();
+
+			if (diffOfEggs > Farm.getZero()) {
+				eggService.sellEggs(eachFarm, diffOfEggs, true);
+			}
+			if (diffOfChickens > Farm.getZero()) {
+				chickenService.sellChickens(eachFarm, diffOfChickens, true);			
+			}
+		}
+	}
 	
 }

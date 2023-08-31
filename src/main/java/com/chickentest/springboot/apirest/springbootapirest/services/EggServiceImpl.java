@@ -91,14 +91,15 @@ public class EggServiceImpl implements IEggService {
 	}
 	
 	@Override
-	public void sellEggs(Farm farm, int amount) {
+	public void sellEggs(Farm farm, int amount, boolean discount) {
 		List<Egg> allEggs = (List<Egg>) eggDao.findAll();
 		List<Egg> eggsToSell = new ArrayList<>();
-		double income = 0;		
+		double income = Farm.getZero();		
 		
 		for(int i=0; i < amount; i++) {	
 			eggsToSell.add(allEggs.get(i));
-			income += allEggs.get(i).getPrice();
+			double profit = discount == false ? allEggs.get(i).getPrice() : allEggs.get(i).getPrice()*Farm.getPercentOfDiscount(); 
+			income += profit;
 		}
 		farm.setMoney(farm.getMoney()+income);
 		farmDao.save(farm);		
@@ -109,5 +110,5 @@ public class EggServiceImpl implements IEggService {
 	public int countEggs(long id) {
 		return eggDao.countByFarmId(id);
 	}
-
+	
 }

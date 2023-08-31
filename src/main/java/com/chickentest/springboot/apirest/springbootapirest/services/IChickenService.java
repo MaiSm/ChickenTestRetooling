@@ -16,6 +16,6 @@ public interface IChickenService {
 	public void growChickens (int days);
 	public void putEggs(int days);
 	public void buyChickens(Farm farm, int amount);
-	public void sellChickens(Farm farm, int amount);
+	public void sellChickens(Farm farm, int amount, boolean discount);
 	public int countChickens(long id);
 }

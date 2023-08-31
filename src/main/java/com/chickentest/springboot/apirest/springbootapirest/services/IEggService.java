@@ -16,5 +16,5 @@ public interface IEggService {
 	public void growEggs (int days);
 	public int countEggs(long id);
 	public void buyEggs(Farm farm, int amount);
-	public void sellEggs(Farm farm, int amount);
+	public void sellEggs(Farm farm, int amount, boolean discount);
 }
