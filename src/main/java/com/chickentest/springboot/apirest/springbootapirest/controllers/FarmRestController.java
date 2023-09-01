@@ -8,10 +8,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,7 +73,7 @@ public class FarmRestController {
 		}
 	}	
 	
-	@PutMapping("/farms/time/{days}")
+	@GetMapping("/farms/time/{days}")
 	public ResponseEntity<?> addDays(@PathVariable int days) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -93,7 +91,7 @@ public class FarmRestController {
 		}		
 	}
 		
-	@PostMapping ("/farms/{id}/{type}/buy/{amount}")
+	@GetMapping ("/farms/{id}/{type}/buy/{amount}")
 	public ResponseEntity<?> buyChickensOrEggs (@PathVariable long id, @PathVariable String type, @PathVariable int amount){
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -124,7 +122,7 @@ public class FarmRestController {
 		}
 	}
 	
-	@DeleteMapping ("/farms/{id}/{type}/sell/{amount}")
+	@GetMapping ("/farms/{id}/{type}/sell/{amount}")
 	public ResponseEntity<?> sellChickensOrEggs (@PathVariable long id, @PathVariable String type, @PathVariable int amount){
 		Map<String, Object> response = new HashMap<>();
 		try {
