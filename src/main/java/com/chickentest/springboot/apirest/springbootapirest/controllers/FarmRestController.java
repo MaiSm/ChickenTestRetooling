@@ -1,5 +1,6 @@
 package com.chickentest.springboot.apirest.springbootapirest.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 import com.chickentest.springboot.apirest.springbootapirest.services.IFarmService;
+import jakarta.validation.Valid;
 
 @CrossOrigin(origins= {"http://localhost:4200"}) 
 @RestController
@@ -61,12 +65,20 @@ public class FarmRestController {
 	}
 	
 	@PutMapping("/farms/{id}")
-	public ResponseEntity<?> update(@RequestBody Farm farm, @PathVariable Long id) {
+	public ResponseEntity<?> update(@Valid @RequestBody Farm farm, BindingResult result, @PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
+		if(result.hasErrors()) {
+			List<String> errors = new ArrayList<>();
+			for(FieldError err : result.getFieldErrors()) {
+				errors.add(err.getDefaultMessage() + " for the field '" + err.getField() + "'");
+			}
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.BAD_REQUEST);
+		}
 		try {
 			farmService.update(id, farm);
 			response.put("Message", "The farm Id: " + id + " has been updated.");
-			return new ResponseEntity<Farm>(farm,HttpStatus.OK);
+			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.OK);
 		}catch(Exception e) {
 			response.put("Error", e.getMessage()+ " : " + e.getCause());
 			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);

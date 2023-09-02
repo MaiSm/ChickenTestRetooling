@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name="farms")
@@ -16,9 +17,13 @@ public class Farm {
 	private long id;	
 	private String name;
 	private double money;
+	@Min(value = 1, message = "Invalid price. You must enter only numbers above 1")
 	private double sellingEggPrice;
+	@Min(value = 1, message = "Invalid price. You must enter only numbers above 1")
 	private double sellingChickenPrice;
+	@Min(value = 1, message = "Invalid price. You must enter only numbers above 1")
 	private double buyingEggPrice;
+	@Min(value = 1, message = "Invalid price. You must enter only numbers above 1")
 	private double buyingChickenPrice;
 	private int limitOfEggs;
 	private int limitOfChickens;
