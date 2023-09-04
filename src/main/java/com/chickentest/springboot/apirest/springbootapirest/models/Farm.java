@@ -28,7 +28,10 @@ public class Farm {
 	private int limitOfEggs;
 	private int limitOfChickens;
 	private static final int ZERO = 0;
+	private static final int MIN_DAYS_TO_MOVE = 1;
+	private static final int MAX_DAYS_TO_MOVE = 5;
 	private static final double PERCENT_OF_DISCOUNT = 0.5;
+	
 	
 	@OneToMany(mappedBy = "farm")
 	private List<Egg> eggsList;
@@ -92,6 +95,12 @@ public class Farm {
 	}
 	public static double getPercentOfDiscount() {
 		return PERCENT_OF_DISCOUNT;
+	}
+	public static int getMinDaysToMove() {
+		return MIN_DAYS_TO_MOVE;
+	}
+	public static int getMaxDaysToMove() {
+		return MAX_DAYS_TO_MOVE;
 	}
 		
 }

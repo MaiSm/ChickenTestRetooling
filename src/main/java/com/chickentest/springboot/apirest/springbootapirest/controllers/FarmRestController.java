@@ -89,7 +89,7 @@ public class FarmRestController {
 	public ResponseEntity<?> addDays(@PathVariable int days) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			if(days < 1 || days > 5) {
+			if(days < Farm.getMinDaysToMove() || days > Farm.getMaxDaysToMove()) {
 				response.put("Message", "You can only select a number of days between 1 and 5");
 				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);
 			}else {
@@ -112,8 +112,10 @@ public class FarmRestController {
 				
 				int farmLimit = type.equals("chickens") ? farm.getLimitOfChickens() : farm.getLimitOfEggs();
 				Boolean farmSpace =  farmLimit >= (farmService.countChickensOrEggs(1L, type) + amount);
-				
-				if ((type.equals("chickens") && (farm.getMoney()< farm.getBuyingChickenPrice()*amount)) || (type.equals("eggs") && (farm.getMoney()< farm.getBuyingEggPrice()*amount))){
+				if(amount<=Farm.getZero()) {
+					response.put("Message", "You can't select 0 or negative numbers");
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);
+				}else if ((type.equals("chickens") && (farm.getMoney()< farm.getBuyingChickenPrice()*amount)) || (type.equals("eggs") && (farm.getMoney()< farm.getBuyingEggPrice()*amount))){
 					response.put("Message", "The farm has no enough money to buy that amount of " + type);
 					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);		
 				} else if (!farmSpace){
@@ -139,8 +141,11 @@ public class FarmRestController {
 		Map<String, Object> response = new HashMap<>();
 		try {
 			Farm farm = farmService.findById(id);
-			if (farm!= null) {							
-				if (amount > farmService.countChickensOrEggs(id, type)){
+			if (farm!= null) {	
+				if(amount<=Farm.getZero()) {
+					response.put("Message", "You can't select 0 or negative numbers");
+					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);
+				}else if (amount > farmService.countChickensOrEggs(id, type)){
 					response.put("Message", "The farm has no enough " + type + " to sell");
 					return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_ACCEPTABLE);		
 				} else{
