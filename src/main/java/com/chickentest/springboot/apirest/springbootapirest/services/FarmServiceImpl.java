@@ -35,6 +35,8 @@ public class FarmServiceImpl implements IFarmService{
 		currentFarm.setSellingChickenPrice(farm.getSellingChickenPrice());
 		currentFarm.setBuyingEggPrice(farm.getBuyingEggPrice());
 		currentFarm.setBuyingChickenPrice(farm.getBuyingChickenPrice());
+		currentFarm.setLimitOfChickens(farm.getLimitOfChickens());
+		currentFarm.setLimitOfEggs(farm.getLimitOfEggs());
 
 		return farmDao.save(currentFarm);
 	}
