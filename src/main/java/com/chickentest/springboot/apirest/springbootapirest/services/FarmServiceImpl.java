@@ -47,6 +47,12 @@ public final class FarmServiceImpl implements IFarmService{
 		eggService.growEggs(days);
 		chickenService.putEggs(days);
 		checkLimits();
+		
+		List<Farm> allFarms = (List<Farm>) farmDao.findAll();
+		for(Farm eachFarm : allFarms) {
+			eachFarm.setNumberOfDays(eachFarm.getNumberOfDays()+days);
+			farmDao.save(eachFarm);
+		}
 	}
 	
 	@Override

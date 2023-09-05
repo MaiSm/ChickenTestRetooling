@@ -27,6 +27,7 @@ public class Farm {
 	private double buyingChickenPrice;
 	private int limitOfEggs;
 	private int limitOfChickens;
+	private int numberOfDays;
 	private static final int ZERO = 0;
 	private static final int MIN_DAYS_TO_MOVE = 1;
 	private static final int MAX_DAYS_TO_MOVE = 5;
@@ -89,6 +90,12 @@ public class Farm {
 	}
 	public void setLimitOfChickens(int limitOfChickens) {
 		this.limitOfChickens = limitOfChickens;
+	}
+	public int getNumberOfDays() {
+		return numberOfDays;
+	}
+	public void setNumberOfDays(int numberOfDays) {
+		this.numberOfDays = numberOfDays;
 	}
 	public static int getZero() {
 		return ZERO;
