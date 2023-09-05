@@ -29,7 +29,7 @@ public class Chicken {
 	private double price;
 	private int days;
 	private int daysSinceLastEggs;
-	private static final int ZERO = 15;
+	private static final int ZERO = 0;
 	private static final int DAYS_OF_LIFE = 15;
 	private static final int DAYS_TO_PUT_EGGS = 5;
 	private static final int EGGS_BY_CHICKEN = 2;

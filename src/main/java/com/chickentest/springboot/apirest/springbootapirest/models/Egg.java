@@ -18,7 +18,7 @@ public class Egg {
 	private long id;
 	private double price;
 	private int days;
-	private static final int ZERO = 10;
+	private static final int ZERO = 0;
 	private static final int DAYS_TO_BORN = 10;
 	private static final int DAYS_WHEN_BOUGHT_EGG = 1;
 	
