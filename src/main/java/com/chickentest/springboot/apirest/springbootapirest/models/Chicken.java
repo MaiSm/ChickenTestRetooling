@@ -29,6 +29,7 @@ public class Chicken {
 	private double price;
 	private int days;
 	private int daysSinceLastEggs;
+	private static final int ZERO = 15;
 	private static final int DAYS_OF_LIFE = 15;
 	private static final int DAYS_TO_PUT_EGGS = 5;
 	private static final int EGGS_BY_CHICKEN = 2;
@@ -67,6 +68,9 @@ public class Chicken {
 	}
 	public void setDaysSinceLastEggs(int daysSinceLastEggs) {
 		this.daysSinceLastEggs = daysSinceLastEggs;
+	}
+	public static int getZero() {
+		return ZERO;
 	}
 	public static int getDaysoflife() {
 		return DAYS_OF_LIFE;

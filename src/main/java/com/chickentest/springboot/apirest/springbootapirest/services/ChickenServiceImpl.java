@@ -29,30 +29,6 @@ public class ChickenServiceImpl implements IChickenService {
 	public List<Chicken> findAll() {		
 		return (List<Chicken>) chickenDao.findAll();
 	}
-
-	@Override
-	public Chicken findById(Long id) {
-		return chickenDao.findById(id).orElse(null);
-	}
-
-	@Override
-	public Chicken save(Chicken chicken) {
-		return chickenDao.save(chicken);
-	}
-	
-	@Override
-	public Chicken update(Long id, Chicken chicken) {
-		Chicken currentChicken = chickenDao.findById(id).orElse(null);
-		currentChicken.setPrice(chicken.getPrice());
-		currentChicken.setFarm(chicken.getFarm());
-		return chickenDao.save(currentChicken);
-	}
-
-	@Override
-	public String delete(Long id) {
-		chickenDao.deleteById(id);
-		return "Chicken has been eliminated";
-	}
 	
 	public void growChickens (int days) {
 		
@@ -108,7 +84,7 @@ public class ChickenServiceImpl implements IChickenService {
 	public void sellChickens(Farm farm, int amount, boolean discount) {
 		List<Chicken> allChickens = (List<Chicken>) chickenDao.findAll();
 		List<Chicken> chickensToSell = new ArrayList<>();
-		double income = Farm.getZero();		
+		double income = Chicken.getZero();		
 
 		for(int i=0; i < amount; i++) {	
 			chickensToSell.add(allChickens.get(i));
