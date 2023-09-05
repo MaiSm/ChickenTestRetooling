@@ -3,7 +3,7 @@ package com.chickentest.springboot.apirest.springbootapirest.services;
 import java.util.List;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
-public interface IFarmService {
+public sealed interface IFarmService permits FarmServiceImpl {
 	
 	public List<Farm> findAll();
 	public Farm findById(Long id);

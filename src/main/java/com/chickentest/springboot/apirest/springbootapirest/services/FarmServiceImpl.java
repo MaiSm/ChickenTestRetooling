@@ -7,7 +7,7 @@ import com.chickentest.springboot.apirest.springbootapirest.dao.IFarmDao;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 @Service
-public class FarmServiceImpl implements IFarmService{
+public final class FarmServiceImpl implements IFarmService{
 
 	@Autowired
 	IFarmDao farmDao;

@@ -12,7 +12,7 @@ import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 @Service
-public class ChickenServiceImpl implements IChickenService {
+public final class ChickenServiceImpl implements IChickenService {
 
 	@Autowired
 	IChickenDao chickenDao;	

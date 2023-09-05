@@ -5,7 +5,7 @@ import com.chickentest.springboot.apirest.springbootapirest.models.Chicken;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 
-public interface IChickenService {
+public sealed interface IChickenService permits ChickenServiceImpl {
 
 	public List<Chicken> findAll();
 	public void growChickens (int days);

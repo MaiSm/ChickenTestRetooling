@@ -12,8 +12,8 @@ import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
 import com.chickentest.springboot.apirest.springbootapirest.models.Farm;
 
 @Service
-public class EggServiceImpl implements IEggService {
-
+public final class EggServiceImpl implements IEggService{
+	
 	@Autowired
 	IEggDao eggDao;
 	
