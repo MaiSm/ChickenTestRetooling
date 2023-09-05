@@ -1,14 +1,14 @@
 package com.chickentest.springboot.apirest.springbootapirest.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.chickentest.springboot.apirest.springbootapirest.models.Egg;
 import com.chickentest.springboot.apirest.springbootapirest.services.IEggService;
@@ -21,27 +21,20 @@ public class EggRestController {
 	IEggService eggService;
 	
 	@GetMapping("/eggs")
-	public List<Egg> findAll() {
-		return eggService.findAll();		
-	}
-
-	@GetMapping("/eggs/{id}")
-	public Egg findById(@PathVariable Long id){
-		return eggService.findById(id);
-	}
-	
-	@PostMapping("/eggs")
-	public Egg create(@RequestBody Egg egg) {
-		return eggService.save(egg);
-	}
-	
-	@PutMapping("/eggs/{id}")
-	public Egg update(@RequestBody Egg egg, @PathVariable Long id) {
-		return eggService.update(id, egg);
-	}
-	
-	@DeleteMapping("/eggs/{id}")
-	public String delete(@PathVariable Long id) {
-		return eggService.delete(id);
-	}
+	public ResponseEntity<?> findAll() {
+		Map<String, Object> response = new HashMap<>();
+		List<Egg> eggList;
+		try{
+			eggList = eggService.findAll();	
+			if(eggList.size() == Egg.getZero()) {
+				response.put("Message", "The are no Eggs in the Database.");
+				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
+			}else {
+				return new ResponseEntity<List<Egg>>(eggList,HttpStatus.OK);
+			}
+		}catch(DataAccessException e) {
+			response.put("Error", e.getMessage()+ " : " + e.getMostSpecificCause());
+			return new ResponseEntity<Map<String, Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+		}		
+	}	
 }

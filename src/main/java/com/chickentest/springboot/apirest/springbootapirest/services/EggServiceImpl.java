@@ -29,31 +29,6 @@ public class EggServiceImpl implements IEggService {
 	}
 
 	@Override
-	public Egg findById(Long Id) {
-		return eggDao.findById(Id).orElse(null);
-	}
-
-	@Override
-	public Egg save(Egg egg) {
-		return eggDao.save(egg);
-	}
-	
-	@Override
-	public Egg update(Long Id, Egg egg) {		
-		Egg currentEgg = eggDao.findById(Id).orElse(null);
-		currentEgg.setPrice(egg.getPrice());
-		currentEgg.setDays(egg.getDays());
-		currentEgg.setFarm(egg.getFarm());
-		return eggDao.save(currentEgg);
-	}
-
-	@Override
-	public String delete(Long Id) {
-		eggDao.deleteById(Id);
-		return "The egg has been deleted";
-	}
-	
-	@Override
 	public void growEggs(int days) {
 		
 		List<Egg> eggsToChickens = new ArrayList<>();
