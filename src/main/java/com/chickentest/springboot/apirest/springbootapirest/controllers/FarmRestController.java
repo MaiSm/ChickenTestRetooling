@@ -25,15 +25,15 @@ import jakarta.validation.Valid;
 public class FarmRestController {
 
 	@Autowired
-	IFarmService farmService;	
+	IFarmService farmService;
 	
 	@GetMapping("/farms")
 	public ResponseEntity<?> findAll() {
 		Map<String, Object> response = new HashMap<>();
-		List<Farm> farmList = null;
+		List<Farm> farmList;
 		try {
 			farmList = farmService.findAll();
-			if(farmList == null) {
+			if(farmList.size() == Farm.getZero()) {
 				response.put("Message", "The are no Farms in the Database.");
 				return new ResponseEntity<Map<String, Object>>(response,HttpStatus.NOT_FOUND);
 			}else {
